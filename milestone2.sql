@@ -89,13 +89,44 @@ CREATE PROC createAllTables AS
 	);
 	GO
 
-EXEC createAllTables;
+--EXEC createAllTables;
 
-GO
 CREATE PROC dropAllTables AS
 	DROP TABLE IF EXISTS Permission, Game_Ticket, Ticket, System_Admin,
 	Representative, Sports_Association_Manager, Manager,
 	Fan, SystemUser, Game, Club, Stadium;
 GO
 
-EXEC dropAllTables;
+--EXEC dropAllTables;
+
+CREATE PROC dropAllProceduresFunctionsViews AS
+	DROP PROC IF EXISTS createAllTables, dropAllTables, clearAllTables,
+	addAssociationManager, addNewMatch, deleteMatch, deleteMatchesOnStadium,
+	addClub, addTicket, deleteClub, addStadium, deleteStadium, blockFan,
+	unblockFan, addRepresentative, addHostRequest, addStadiumManager,
+	acceptRequest, rejectRequest, addFan, purchaseTicket, updateMatchHost,
+	deleteMatchesOnStadium;
+	DROP VIEW IF EXISTS allAssocManagers, allClubRepresentatives,
+	allStadiumManagers, allFans, allMatches, allTickets, allCLubs,
+	allStadiums, allRequests, clubsWithNoMatches, viewAvailableStadiumsOn
+	, matchesPerTeam, clubsNeverMatched;
+	DROP FUNCTION IF EXISTS allUnassignedMatches, allPendingRequests,
+	upcomingMatchesOfClub, availableMatchesToAttend, clubsNeverPlayed,
+	matchWithHighestAttendance, matchesRankedByAttendance, requestsFromClub;
+	GO
+
+CREATE PROC clearAllTables AS
+	TRUNCATE TABLE Permission;
+	TRUNCATE TABLE Game_Ticket;
+	TRUNCATE TABLE System_Admin;
+	TRUNCATE TABLE Ticket;
+	TRUNCATE TABLE Sports_Association_Manager;
+	TRUNCATE TABLE Representative;
+	TRUNCATE TABLE Fan;
+	TRUNCATE TABLE Manager;
+	TRUNCATE TABLE SystemUser;
+	TRUNCATE TABLE Game;
+	TRUNCATE TABLE Club;
+	TRUNCATE TABLE Stadium;
+	GO
+

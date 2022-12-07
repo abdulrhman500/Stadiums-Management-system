@@ -1,8 +1,9 @@
 ﻿
 --CREATE DATABASE Project;
+--USE	Project;
 
-
-CREATE Proc createAllTables AS
+GO
+CREATE PROC createAllTables AS
 
 	CREATE TABLE Stadium (
 		id int Primary Key Identity,
@@ -42,29 +43,29 @@ CREATE Proc createAllTables AS
 		birth_date Date,
 		fan_address VARCHAR(60),
 		is_blocked BIT,
-		FOREIGN KEY (fan_user_id) REFERENCES SystemUser(id)
+		FOREIGN KEY (id) REFERENCES SystemUser(id)
 		)
 
 	CREATE TABLE Manager (
-		id int FOREIGN KEY REFERENCES SystemUser(id),
+		id int Primary Key Identity,
 		stadium_id int FOREIGN KEY REFERENCES Stadium(id),
-		Primary Key (manager_user_id, stadium_id)
-	)
-
-	CREATE TABLE Sports_Association_Manager (
-		id int FOREIGN KEY REFERENCES SystemUser(id),
-		Primary Key (smanager_user_id)
+		FOREIGN KEY (id) REFERENCES SystemUser(id),
 	)
 
 	CREATE TABLE Representative (
-		id int FOREIGN KEY REFERENCES SystemUser(id),
+		id int Primary Key Identity,
 		club_id int FOREIGN KEY REFERENCES Club(id),
-		Primary Key (representative_id, club_id)
+		FOREIGN KEY (id) REFERENCES SystemUser(id),
+	)
+
+	CREATE TABLE Sports_Association_Manager (
+		id int Primary Key Identity,
+		FOREIGN KEY (id) REFERENCES SystemUser(id),
 	)
 
 	CREATE TABLE System_Admin (
-		id int FOREIGN KEY REFERENCES SystemUser(id),
-		Primary Key (id)
+		id int Primary Key Identity,
+		FOREIGN KEY (id) REFERENCES SystemUser(id)
 	)
 
 	CREATE TABLE Ticket (
@@ -82,10 +83,19 @@ CREATE Proc createAllTables AS
 	CREATE TABLE Permission (
 		id int Primary Key,
 		is_approved BIT,
-		representative_id int FOREIGN KEY REFERENCES Representative(id),
-		manager_id int FOREIGN KEY REFERENCES Manager(id),
 		game_id int FOREIGN KEY REFERENCES Game(id),
-	)
-
-	
+		manager_id int FOREIGN KEY REFERENCES Manager(id),
+		representative_id int FOREIGN KEY REFERENCES Representative(id),
+	);
 	GO
+
+EXEC createAllTables;
+
+GO
+CREATE PROC dropAllTables AS
+	DROP TABLE IF EXISTS Permission, Game_Ticket, Ticket, System_Admin,
+	Representative, Sports_Association_Manager, Manager,
+	Fan, SystemUser, Game, Club, Stadium;
+GO
+
+EXEC dropAllTables;

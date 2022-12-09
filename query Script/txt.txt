@@ -1,0 +1,252 @@
+a) type: stored procedure
+name: createAllTables
+input: nothing
+output: nothing
+description: Put the queries that creates all the tables of your database with their definition
+inside this procedure.
+1
+b) type: stored procedure
+name: dropAllTables
+input: nothing
+output: nothing
+description: Drop all tables that your database have inside this procedure.
+c) type: stored procedure
+name: dropAllProceduresFunctionsViews
+input: nothing
+output: nothing
+description: Drop all implemented stored procedures (except this one), functions and views that
+you implemented in this milestone.
+d) type: stored procedure
+name: clearAllTables
+input: nothing
+output: nothing
+description: Clear all records in all tables existing in your database.
+2.2 Basic Data Retrieval
+a) type: view
+name: allAssocManagers
+description: fetches the username and name for all association managers.
+b) type: view
+name: allClubRepresentatives
+description: fetches the username, name and represented club name for all club representatives.
+c) type: view
+name: allStadiumManagers
+description: fetches the username, name and managed stadium name for all stadium managers.
+d) type: view
+name: allFans
+description: Fetches the name, national id number, birth date and status (blocked or unblocked)
+for all fans.
+e) type: view
+name: allMatches
+description: Fetches the name of the first competing club, the name of the second competing
+club, the name of the host club and the time on which the match will be played for all matches.
+f) type: view
+name: allTickets
+description: Fetches the name of the first competing club, the name of the second competing
+club, the name of the stadium that will host the match and the time on which the match will be
+played for all tickets.
+g) type: view
+name: allCLubs
+description: Fetches the name and location for all clubs.
+h) type: view
+name: allStadiums
+description: Fetches the name ,location, capacity and status (available or unavailable) for all
+stadiums.
+2
+i) type: view
+name: allRequests
+description: Fetches the name of the club representative sending the request, name of the stadium
+manager receiving the request and the status of the request for all requests.
+2.3 All Other Requirements
+(i) type: stored procedure
+name: addAssociationManager
+input: varchar(20) representing a name , varchar(20) representing a user name ,varchar(20) representing a password
+output: nothing
+description: Adds a new association manager with the given information .
+(ii) type: stored procedure
+name: addNewMatch
+input: varchar(20) representing the name of the first club , varchar(20) representing the name of
+the second club ,varchar(20) representing the name of the host club, datetime representing the time
+on which the match will be played
+output: nothing
+description: Adds a new match with the given information.
+(iii) type: view
+name: clubsWithNoMatches
+description: Fetches the names of all clubs who were not assigned to any match.
+(iv) type: stored procedure
+name: deleteMatch
+input: varchar(20) representing a the name of the first club , varchar(20) representing the name of
+the second club ,varchar(20) representing the name of the host club
+output: nothing
+description: Deletes the match with the given information.
+(v) type: stored procedure
+name: deleteMatchesOnStadium
+input: varchar(20) representing a name of a stadium
+output: nothing
+description: Deletes all matches that will be played on a stadium with the given name. The
+matches that have already been played on that stadium should be kept not deleted.
+(vi) type: stored procedure
+name: addClub
+input: varchar(20) representing a name of a club, varchar(20) representing a location of a club
+output: nothing
+description: Adds a new club with the given information.
+(vii) type: stored procedure
+name: addTicket
+input: varchar(20) representing the name of the host club, varchar(20) representing the name of
+the competing club, datetime representing the starting time of the match
+output: nothing
+description: Adds a new ticket belonging to a match with the given information.
+(viii) type: stored procedure
+name: deleteClub
+input: varchar(20) representing a name of a club,
+output: nothing
+description: Deletes the club with the given name.
+3
+(ix) type: stored procedure
+name: addStadium
+input: varchar(20) representing a name of a stadium, varchar(20) representing a location of a
+stadium, int representing a capacity of a stadium
+output: nothing
+description: Adds a new stadium with the given information.
+(x) type: stored procedure
+name: deleteStadium
+input: varchar(20) representing a name of a stadium
+output: nothing
+description: Deletes stadium with the given name.
+(xi) type: stored procedure
+name: blockFan
+input: varchar(20) representing a national id number of a fan
+output: nothing
+description: blocks the fan with the given national id number.
+(xii) type: stored procedure
+name: unblockFan
+input: varchar(20) representing a national id number of a fan
+output: nothing
+description: Unblocks the fan with the given national id number.
+(xiii) type: stored procedure
+name: addRepresentative
+input: varchar(20) representing a name ,varchar(20) representing a club name, varchar(20) representing a user name ,varchar(20) representing a password
+output: nothing
+description: Adds a new club representative with the given information .
+(xiv) type: function
+name: viewAvailableStadiumsOn
+input: datetime
+output: table
+description: returns a table containing the name, location and capacity of all stadiums which are
+available for reservation and not already hosting a match on the given date.
+(xv) type: stored procedure
+name: addHostRequest
+input: varchar(20) representing club name ,varchar(20) representing a stadium name, datetime
+representing the starting time of a match
+output: nothing
+description: Adds a new request sent from the representative of the given club to the representative
+of the given stadium regarding the match starting at the given time which the given club is assigned
+to host.
+(xvi) type: function
+name: allUnassignedMatches
+input: varchar(20)
+output: table
+description: returns a table containing the info of the matches that are being hosted by a given
+club but have not been assigned to a stadium that is being hosted by the given club. The info
+should be the name of the competing club and the start time of the match.
+(xvii) type: stored procedure
+name: addStadiumManager
+input: varchar(20) representing a name ,varchar(20) representing a stadium name, varchar(20)
+representing a user name ,varchar(20) representing a password
+4
+output: nothing
+description: Adds a new stadium manager with the given information.
+(xviii) type: function
+name: allPendingRequests
+input: varchar(20)
+output: table
+description: returns a table containing the info of the requests that the given stadium manager
+has yet to respond to. The info should be name of the club Representative sending the request,
+name of the club competing with the sender and the starting time of the match requested to be
+hosted.
+(xix) type: stored procedure
+name: acceptRequest
+input: varchar(20) representing stadium manager name,varchar(20) representing hosting club name
+,varchar(20) representing a competing club name, datetime representing the starting time of a match
+output: nothing
+description: Accepts the already sent request with the given info.
+(xx) type: stored procedure
+name: rejectRequest
+input: varchar(20) representing stadium manager name,varchar(20) representing hosting club name
+,varchar(20) representing a competing club name, datetime representing the starting time of a match
+output: nothing
+description: Rejects the already sent request with the given info.
+(xxi) type: stored procedure
+name: addFan
+input: varchar(20) representing a name ,varchar(20) representing a national id number, datetime
+representing birth date,varchar(20) representing an address and int representing a phone number
+output: nothing
+description: Adds a new fan with the given information .
+(xxii) type: function
+name: upcomingMatchesOfClub
+input: varchar(20) representing a club name
+output: table
+description: returns a table containing the info of upcoming matches which the given club will
+play. All already played matches should not be included. The info should be the given club name,
+the competing club name , the starting time of the match and the stadium hosting the match.
+(xxiii) type: function
+name: availableMatchesToAttend
+input: date
+output: table
+description: returns a table containing the info of all upcoming matches which will be played
+starting from the given date and still have tickets available on sale. The info should be the host
+club name, the competing club name , the starting time of the match and the stadium hosting the
+match.
+(xxiv) type: stored procedure
+name: purchaseTicket
+input: int representing national id number of a fan,varchar(20) representing hosting club name
+,varchar(20) representing competing club name, datetime representing date on which a match will
+be played
+output: nothing
+description: Executes the action of a fan with the given national id number buying a ticket for
+the match with the given info .
+5
+(xxv) type: stored procedure
+name: updateMatchHost
+input: varchar(20) representing hosting club name ,varchar(20) representing competing club name,
+datetime representing date on which a match will be played
+output: nothing
+description: Change the host of the given match to the other club .
+(xxvi) type: stored procedure
+name: deleteMatchesOnStadium
+input: varchar(20) representing stadium name,
+output: nothing
+description: Delete all matches that will be played on certain stadium. All matches that already
+have been played on that stadium should not be deleted.
+(xxvii) type: view
+name: matchesPerTeam
+description: Fetches all club names and the number of matches each club has already played
+(xxviii) type: view
+name: clubsNeverMatched
+description: Fetches pair of club names (first club name and second club name) which never
+played against each other.
+(xxix) type: function
+name: clubsNeverPlayed
+input: varchar(20) representing club name,
+output: table
+description: returns a table containing all club names which the given club has never competed
+against.
+(xxx) type: function
+name: matchWithHighestAttendance
+input: nothing
+output: table
+description: returns a table containing the name of the hosting club and the name of the competing
+club of the match which sold the highest number of tickets so far.
+(xxxi) type: function
+name: matchesRankedByAttendance
+input: nothing
+output: table
+description: returns a table containing the name of the hosting club and the name of the competing
+club of all played matches sorted descendingly by the total number of tickets they have sold.
+(xxxii) type: function
+name: requestsFromClub
+input: varchar(20) representing name of a stadium, varchar(20) representing name of a club
+output: table
+description: returns a table containing the name of the hosting club and the name of the competing
+club of all matches that are requested to be hosted on the given stadium sent by the representative
+of the given club.
+6

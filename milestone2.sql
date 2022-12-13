@@ -6,6 +6,8 @@ EXEC dropAllProceduresFunctionsViews;
 DROP PROC dropAllProceduresFunctionsViews;
 */
 
+
+
 --CREATE DATABASE DBProject;
 --USE DBProject;
 
@@ -33,7 +35,7 @@ CREATE PROC createAllTables AS
 		h_club VARCHAR(20) FOREIGN KEY REFERENCES Club(cname) ON UPDATE CASCADE,
 		starting_time datetime,
 --		end_time date,
-		sname VARCHAR(20) FOREIGN KEY REFERENCES Stadium(sname),
+		sname VARCHAR(20) FOREIGN KEY REFERENCES Stadium(sname) ON UPDATE CASCADE,
 	)
 
 	CREATE TABLE SystemUser (
@@ -41,7 +43,6 @@ CREATE PROC createAllTables AS
 		uname VARCHAR(20),
 		username VARCHAR(20),
 		upassword VARCHAR(20),
-		urole VARCHAR(20),
 	)	
 
 	CREATE TABLE Fan (
@@ -121,19 +122,27 @@ CREATE PROC dropAllProceduresFunctionsViews AS
 	,clubsNeverPlayed, matchWithHighestAttendance, matchesRankedByAttendance
 	,requestsFromClub;
 	GO
-
+/*
+INSERT INTO SystemUser VALUES 
+('sss', 'ssss', 'sssss','ssssss');
+SELECT * FROM SystemUser;
+INSERT INTO Sports_Association_Manager VALUES
+	(7);
+SELECT * FROM Sports_Association_Manager;
+	*/
+GO
 CREATE PROC clearAllTables AS
-    TRUNCATE TABLE Request;
-	TRUNCATE TABLE System_Admin;
-	TRUNCATE TABLE Ticket;
-	TRUNCATE TABLE Sports_Association_Manager;
-	TRUNCATE TABLE Representative;
-	TRUNCATE TABLE Fan;
-	TRUNCATE TABLE Manager;
-	TRUNCATE TABLE SystemUser;
-	TRUNCATE TABLE Game;
-	TRUNCATE TABLE Club;
-	TRUNCATE TABLE Stadium;
+    DELETE FROM Request;
+	DELETE FROM System_Admin;
+	DELETE FROM Ticket;
+	DELETE FROM Sports_Association_Manager;
+	DELETE FROM Representative;
+	DELETE FROM Fan;
+	DELETE FROM Manager;
+	DELETE FROM SystemUser;
+	DELETE FROM Game;
+	DELETE FROM Club;
+	DELETE FROM Stadium;
 	GO
 
 CREATE VIEW allAssocManagers AS
@@ -197,7 +206,7 @@ CREATE PROCEDURE addAssociationManager
 	@uname varchar(20), @username varchar(20), @password varchar(20) AS
 
 	INSERT INTO SystemUser VALUES 
-	(@uname, @username, @password, 'AManager');
+	(@uname, @username, @password);
 	DECLARE @id int = (SELECT su.id FROM SystemUser su
 					WHERE su.uname = @uname AND su.username = @username);
     INSERT INTO Sports_Association_Manager VALUES
@@ -286,7 +295,7 @@ CREATE PROCEDURE addRepresentative
 	@password varchar(20) AS
     
 	INSERT INTO SystemUser VALUES
-	(@uname, @username, @password, 'Representative');
+	(@uname, @username, @password);
 	DECLARE @id int = (SELECT su.id FROM SystemUser su
 					WHERE su.uname = @uname AND su.username = @username);
 	INSERT INTO Representative VALUES

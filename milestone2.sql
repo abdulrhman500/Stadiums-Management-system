@@ -32,7 +32,7 @@ CREATE PROC createAllTables AS
 		id int Primary Key Identity,
 		f_club VARCHAR(20) FOREIGN KEY REFERENCES Club(cname),
 		s_club VARCHAR(20) FOREIGN KEY REFERENCES Club(cname),
-		h_club VARCHAR(20) FOREIGN KEY REFERENCES Club(cname) ON UPDATE CASCADE,
+		h_club VARCHAR(20) FOREIGN KEY REFERENCES Club(cname),
 		starting_time datetime,
 --		end_time date,
 		sname VARCHAR(20) FOREIGN KEY REFERENCES Stadium(sname) ON UPDATE CASCADE,
@@ -259,7 +259,7 @@ GO
 
 CREATE PROCEDURE deleteClub 
 	@cname varchar(20) AS
-    
+        DELETE FROM Game WHERE f_club = @cname OR s_club = @cname;
 	DELETE FROM Club WHERE cname = @cname;
 GO
 

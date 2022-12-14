@@ -34,7 +34,7 @@ CREATE PROC createAllTables AS
 		s_club VARCHAR(20) FOREIGN KEY REFERENCES Club(cname),
 		h_club VARCHAR(20) FOREIGN KEY REFERENCES Club(cname),
 		starting_time datetime,
---		end_time date,
+--		end_time datetime,
 		sname VARCHAR(20) FOREIGN KEY REFERENCES Stadium(sname) ON UPDATE CASCADE,
 	)
 
@@ -46,12 +46,12 @@ CREATE PROC createAllTables AS
 	)	
 
 	CREATE TABLE Fan (
-		id int Primary Key,
-		phone_number int,
+		national_id int Primary Key,
 		birth_date Date,
 		fan_address VARCHAR(100),
+		phone_number int,
 		is_blocked BIT DEFAULT 0,
-		FOREIGN KEY (id) REFERENCES SystemUser(id)
+		FOREIGN KEY (national_id) REFERENCES SystemUser(id)
 		ON DELETE CASCADE ON UPDATE CASCADE,
 		)
 	
@@ -86,7 +86,7 @@ CREATE PROC createAllTables AS
 	CREATE TABLE Ticket (
 		id int Primary Key Identity,
 		game_id int FOREIGN KEY REFERENCES Game(id) ON DELETE CASCADE,
-		fan_id int FOREIGN KEY REFERENCES Fan(id) ON UPDATE CASCADE,
+		fan_id int FOREIGN KEY REFERENCES Fan(national_id) ON UPDATE CASCADE,
 		is_available BIT,
 	)
 
@@ -95,7 +95,7 @@ CREATE PROC createAllTables AS
 		is_approved BIT,
 		game_id int FOREIGN KEY REFERENCES Game(id) ON DELETE CASCADE,
 		manager_id int FOREIGN KEY REFERENCES Manager(id),
-		representative_id int FOREIGN KEY REFERENCES Representative(id),
+		representative_id int FOREIGN KEY REFERENCES Representative(id)
 	);
 	GO
 
@@ -104,7 +104,6 @@ CREATE PROC dropAllTables AS
 	Representative, Sports_Association_Manager, Manager,
 	Fan, SystemUser, Game, Club, Stadium;
 GO
-
 
 CREATE PROC dropAllProceduresFunctionsViews AS
 	DROP PROC IF EXISTS createAllTables, dropAllTables, clearAllTables,
@@ -122,23 +121,22 @@ CREATE PROC dropAllProceduresFunctionsViews AS
 	,clubsNeverPlayed, matchWithHighestAttendance, matchesRankedByAttendance
 	,requestsFromClub;
 	GO
+
 /*
 INSERT INTO SystemUser VALUES 
-('sss', 'ssss', 'sssss','ssssss');
+('sss', 'ssss', 'sssss');
+DELETE FROM SystemUser;
 SELECT * FROM SystemUser;
 INSERT INTO Sports_Association_Manager VALUES
-	(7);
+	(3);
+DELETE FROM Sports_Association_Manager;
 SELECT * FROM Sports_Association_Manager;
 	*/
+
 GO
 CREATE PROC clearAllTables AS
     DELETE FROM Request;
-	DELETE FROM System_Admin;
 	DELETE FROM Ticket;
-	DELETE FROM Sports_Association_Manager;
-	DELETE FROM Representative;
-	DELETE FROM Fan;
-	DELETE FROM Manager;
 	DELETE FROM SystemUser;
 	DELETE FROM Game;
 	DELETE FROM Club;
@@ -166,9 +164,9 @@ CREATE VIEW allStadiumManagers AS
 GO
 
 CREATE VIEW allFans AS
-    SELECT SU.uname, F.id, F.birth_date, F.is_blocked
+    SELECT SU.uname, F.national_id, F.birth_date, F.is_blocked
     FROM Fan F
-    JOIN SystemUser SU ON SU.id = F.id;
+    JOIN SystemUser SU ON SU.id = F.national_id;
 GO
 
 CREATE VIEW allMatches AS
@@ -277,17 +275,17 @@ CREATE PROCEDURE deleteStadium
 GO
 
 CREATE PROCEDURE blockFan 
-	@id varchar(20) AS
+	@national_id varchar(20) AS
 	
 	UPDATE Fan SET is_blocked = 1 
-	WHERE id = Cast(@id AS int);
+	WHERE national_id = Cast(@national_id AS int);
 GO
 
 CREATE PROCEDURE unblockFan 
-	@id varchar(20) AS
+	@national_id varchar(20) AS
 	
 	UPDATE Fan SET is_blocked = 0
-	WHERE id = Cast(@id AS int);
+	WHERE national_id = Cast(@national_id AS int);
 GO
 
 CREATE PROCEDURE addRepresentative 
@@ -347,9 +345,16 @@ CREATE PROCEDURE rejectRequest AS
     FROM;
 GO
 
-CREATE PROCEDURE addFan AS
-    SELECT *
-    FROM;
+CREATE PROCEDURE addFan
+	@uname varchar(20), @national_id varchar(20), @time datetime,
+	@address varchar(20), @phone int AS
+
+	SET IDENTITY_INSERT SystemUser ON;
+    INSERT INTO SystemUser VALUES
+	(CAST(@national_id AS INT), @uname, null, null);
+	INSERT INTO Fan VALUES
+	(CAST(@national_id AS INT), @time, @address, @phone, 0);
+	SET IDENTITY_INSERT SystemUser OFF;
 GO
 
 CREATE FUNCTION upcomingMatchesOfClub AS
@@ -368,11 +373,6 @@ CREATE PROCEDURE purchaseTicket AS
 GO
 
 CREATE PROCEDURE updateMatchHost AS
-    SELECT *
-    FROM;
-GO
-
-CREATE PROCEDURE deleteMatchesOnStadium AS
     SELECT *
     FROM;
 GO

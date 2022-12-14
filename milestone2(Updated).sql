@@ -12,7 +12,6 @@ drop database DBProject
 
 --CREATE DATABASE DBProject;
 --USE DBProject;
-select *from SystemUser;
 GO
 CREATE PROC createAllTables AS
 

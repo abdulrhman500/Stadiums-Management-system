@@ -422,30 +422,127 @@ CREATE VIEW matchesPerTeam AS
     SELECT *
     FROM;
 GO
+*/
 
 CREATE VIEW clubsNeverMatched AS
-    SELECT *
-    FROM;
+    SELECT hc.name , gc.name 
+    FROM Club hc full join  Club gc
+	on hc.id <> gc.id
+	where not exists (
+	select * from Match M where M.host_club = hc.id and M.guest_club = gc.id 
+	)
 GO
 
-CREATE FUNCTION clubsNeverPlayed AS
-    SELECT *
-    FROM;
+
+------------------------------------------------
+CREATE FUNCTION clubsNeverPlayed 
+(@club varchar(20))
+returns @RET TABLE(
+club int )
+AS
+begin 
+
+
+declare @club_id int ;
+select @club_id =c.id from club c where c.name = @club ;
+
+insert into @RET 
+
+select C.name as club 
+--start of Clubs 
+from (
+
+select C0.id
+from club C0 
+except 
+(
+
+select   M.host_club  
+from Match M  where M.guest_club = @club_id and M.starting_time < CURRENT_TIMESTAMP 
+union 
+select M.guest_club
+from Match M  where  M.host_club = @club_id and M.starting_time < CURRENT_TIMESTAMP
+
+)
+
+
+) as Clubs
+--end of Clubs
+join Club C
+	on C.id = Clubs.id
+
+return 
+end
+GO
+------------------------------------------------
+
+CREATE FUNCTION matchWithHighestAttendance ()
+RETURNS Table 
+
+AS
+
+return (
+select top(1)
+hc.name as host_Club , gc.name as guest_club 
+from Ticket_purchase TP 
+join  Ticket T 
+	on T.id = TP.Ticket_id
+join Match M 
+	on M.id = T.Match_id
+join Club hc 
+	on hc.id = M.host_club
+join Club gc 
+	on gc.id = M.guest_club
+	group by hc.name , gc.name ,M.id
+order by sum(T.id) desc
+
+);
+
+go
+
+
+CREATE FUNCTION matchesRankedByAttendance ()
+RETURNS Table 
+
+AS
+
+return (
+select 
+hc.name as host_Club , gc.name as guest_club 
+from Ticket_purchase TP 
+join  Ticket T 
+	on T.id = TP.Ticket_id
+join Match M 
+	on M.id = T.Match_id
+join Club hc 
+	on hc.id = M.host_club
+join Club gc 
+	on gc.id = M.guest_club
+	group by hc.name , gc.name , M.id
+order by sum(T.id) desc
+);
+
+
 GO
 
-CREATE FUNCTION matchWithHighestAttendance AS
-    SELECT *
-    FROM;
+ 
+GO
+Create FUNCTION RequestsFromClub
+
+(@stadium varchar(20) , @club varchar(20))
+
+RETURNS Table
+AS
+return (
+select  
+@club as  Host_club ,C.name as Guest_Club 
+from Request RE 
+join Match M 
+	on M.id=RE.Match_id AND  M.host_club = (select c.id from club c where c.name=@club)
+join Stadium S 
+	on S.id = M.stadium_id AND s. name =@stadium
+join Club C 
+	on M.guest_club =c.id 
+	);
 GO
 
-CREATE FUNCTION matchesRankedByAttendance AS
-    SELECT *
-    FROM;
-GO
-
-CREATE FUNCTION requestsFromClub AS
-    SELECT *
-    FROM;
-GO
-
-*/

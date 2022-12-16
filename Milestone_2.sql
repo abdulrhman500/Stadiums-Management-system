@@ -408,10 +408,31 @@ CREATE FUNCTION availableMatchesToAttend AS
     FROM;
 GO
 
-CREATE PROCEDURE purchaseTicket AS
-    SELECT *
-    FROM;
+CREATE PROCEDURE purchaseTicket (
+@nationalID varchar(20),
+@h_clubName varchar(20),
+@g_clubName varchar(20),
+@startTime datetime
+) AS
+declare @matchID int ;
+select @matchID=m.id from Match m 
+where m.guest_club =@g_clubName and m.host_club=@h_clubName
+and m.starting_time =@startTime;
+
+declare @TicketId int ;
+select @TicketId=t.id
+from Ticket t
+where t.Match_id =@matchID and t.is_available =1;
+
+if @ticketId IS NOT NULL
+begin 
+update Ticket  set is_available = 0 where id = @ticketId;
+insert into Ticket_purchase values(@TicketId,@nationalID);
+end 
+
 GO
+
+
 
 CREATE PROCEDURE updateMatchHost AS
     SELECT *
@@ -424,6 +445,9 @@ CREATE VIEW matchesPerTeam AS
 GO
 */
 
+
+
+GO
 CREATE VIEW clubsNeverMatched AS
     SELECT hc.name , gc.name 
     FROM Club hc full join  Club gc

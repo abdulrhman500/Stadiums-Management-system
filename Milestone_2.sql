@@ -160,6 +160,7 @@ CREATE PROC dropAllTables AS
 	
 GO
 CREATE PROC dropAllProceduresFunctionsViews AS
+	
 	DROP PROC IF EXISTS createAllTables, dropAllTables, clearAllTables,
 	addAssociationManager, addNewMatch, deleteMatch, deleteMatchesOnStadium,
 	addClub, addTicket, deleteClub, addStadium, deleteStadium, blockFan,
@@ -356,36 +357,40 @@ CREATE FUNCTION viewAvailableStadiumsOn
 								))
 GO
 
-/*
-CREATE PROCEDURE addHostRequest AS
-    SELECT *
-    FROM;
+
+CREATE PROCEDURE addHostRequest
+@name varchar(20),
+@stadiumN varchar(20),
+@username varchar(20),
+@password varchar(20)
+
+AS
+ Declare @Sid int ;
+ select @sid = s.id from Stadium s where s.name=@stadiumN;
+
+ insert into systemUser values (@username,@name,@password);
+ 
+ insert into Stadium_Manager values (@username,@Sid);
+ 
 GO
 
-CREATE FUNCTION allUnassignedMatches AS
-    SELECT *
-    FROM;
+
+CREATE FUNCTION allUnassignedMatches 
+   (@cname varchar(20)) 
+   RETURNS TABLE 
+   RETURN ( SELECT m.guest_club , m.starting_time 
+             FROM Match m 
+			 WHERE m.host_club = @cname 
+			 AND m.stadium_id is null ) 
 GO
 
-CREATE PROCEDURE addStadiumStadium_Manager AS
-    SELECT *
-    FROM;
-GO
 
-CREATE FUNCTION allPendingRequests AS
-    SELECT *
-    FROM;
-GO
 
-CREATE PROCEDURE acceptRequest AS
-    SELECT *
-    FROM;
-GO
 
-CREATE PROCEDURE rejectRequest AS
-    SELECT *
-    FROM;
-GO
+
+
+
+
 
 CREATE PROCEDURE addFan
 	@name varchar(20), @username varchar(20), @password varchar(20),
@@ -398,15 +403,6 @@ CREATE PROCEDURE addFan
 	(@national_id, @username, @birth_dath, @address, @phone, 1);
 GO
 
-CREATE FUNCTION upcomingMatchesOfClub AS
-    SELECT *
-    FROM;
-GO
-
-CREATE FUNCTION availableMatchesToAttend AS
-    SELECT *
-    FROM;
-GO
 
 CREATE PROCEDURE purchaseTicket (
 @nationalID varchar(20),
@@ -433,21 +429,172 @@ end
 GO
 
 
+---Needs a check---
+CREATE FUNCTION upcomingMatchesOfClub 
+(@name varchar(20)) 
+ RETURNS TABLE 
+AS
+   return SELECT c.name ,m.starting_time,m.end_time ,s.name
+    FROM Stadium s join Match m on m.stadium_id=s.id
+	     join Club c on c.name=m.guest_club or c.name=m.host_club
+	where m.starting_time > CURRENT_TIMESTAMP
 
-CREATE PROCEDURE updateMatchHost AS
-    SELECT *
-    FROM;
 GO
+
+----- ERROR  NOt Working ------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!     >>>>>-------
+CREATE FUNCTION availableMatchesToAttend 
+
+@datetime datetime
+
+AS
+    SELECT *
+    FROM Match m join Ticket t on m.id =t.id 
+	where is_available = 1
+GO
+
+---needs a Check --------
+CREATE PROCEDURE updateMatchHost 
+@hostclubname varchar(20), @guestclubname varchar(20),@starttime datetime
+AS
+ update  Match 
+ set host_club =@hostclubname ,guest_club =@guestclubname , starting_time =@starttime
+GO
+
+/*
+
 
 CREATE VIEW matchesPerTeam AS
     SELECT *
     FROM;
 GO
+
+
+
 */
 
+CREATE PROCEDURE addHostRequest
+
+
+@club_name varchar(20),
+@stadiumN varchar(20),
+@stime datetime
+AS
+declare @cID int ;
+select @cID=c.id from Club c where @club_name = c.name
+
+declare @matchID int ;
+select @matchID=m.id from match m where @cID = m.host_club 
+and @stime = m.starting_time
+
+
+declare @smID int ;
+select @smID=sm.id from Stadium s 
+join Stadium_Manager sm
+	on sm.stadium_id = s.id
+	where s.name =@stadiumN;
+
+declare @CRID int ;
+select @CRID=cr.id from Club c 
+join  Club_Representative cr 
+	on cr.club_id = c.id
+
+	where c.name =@club_name;
+
+insert into Request values (0,@matchID,@smID,@CRID);
+
+go
+
+CREATE FUNCTION allPendingRequests (@stadium_manager varchar(20))
+returns @RET 
+TABLE(
+Club_Representative varchar(20) ,
+guest_club varchar(20),
+starting_time datetime
+ )
+AS
+begin 
+
+declare @ManID int;
+select @ManID=sm.id from Stadium_Manager sm 
+where sm.username=@stadium_manager;
+
+insert into @RET 
+    SELECT su.name , gc.name,m.starting_time
+    FROM Request re 
+	join Match m 
+		on m.id = re.Match_id
+	join club gc 
+	on gc.id = m.guest_club
+	join  Club_Representative cr 
+		on cr.id = re.Club_Representative_id
+	join SystemUser su 
+		on su.username = cr.username
+
+	where Stadium_Manager_id = @ManID 
+	and re.is_approved=0
+
+return 
+end
+GO
+
+GO
+
+
+CREATE PROCEDURE acceptRequest
+
+@stadium_manager varchar(20),
+@host_club varchar(20),
+@guest_club varchar(20),
+@time datetime
+AS
+
+declare @ManID int;
+select @ManID=sm.id from Stadium_Manager sm 
+where sm.username=@stadium_manager;
+
+declare @MatchID int;
+select @MatchID=m.id from match m 
+where m.host_club=@host_club and m.guest_club = @guest_club
+
+
+update Request set is_approved = 1 
+where Request.Match_id=@MatchID
+and  Request.Stadium_Manager_id = @ManID;
+
+GO
+
+
+
+
+CREATE PROCEDURE rejectRequest
+
+@stadium_manager varchar(20),
+@host_club varchar(20),
+@guest_club varchar(20),
+@time datetime
+AS
+
+declare @ManID int;
+select @ManID=sm.id from Stadium_Manager sm 
+where sm.username=@stadium_manager;
+
+declare @MatchID int;
+select @MatchID=m.id from match m 
+where m.host_club=@host_club and m.guest_club = @guest_club
+
+
+update Request set is_approved = 0 
+where Request.Match_id=@MatchID
+and  Request.Stadium_Manager_id = @ManID;
 
 
 GO
+
+
+
+
+
+
 CREATE VIEW clubsNeverMatched AS
     SELECT hc.name , gc.name 
     FROM Club hc full join  Club gc
@@ -571,3 +718,41 @@ join Club C
 GO
 
 
+
+
+
+
+/*
+
+CREATE PROCEDURE addFan 
+@name varchar(20) ,@username varchar(20), @pass varchar(20) ,@nationalid varchar(20),
+@birthdate datetime ,@address varchar(20) ,@phonenumber int
+AS
+	INSERT INTO Fan VALUES
+	(@nationalid ,@username,@phonenumber,@birthdate,@address,0)
+
+GO
+
+
+
+
+CREATE PROCEDURE purchaseTicket 
+@nationalid varchar(20),@hostclubname varchar(20),@guestclubname varchar(20),
+@starttime datetime
+
+AS
+INSERT INTO Ticket_purchase values 
+(id,Ticket_id,Fan_id)
+GO
+
+
+CREATE PROCEDURE deleteMatchesOnStadium AS
+    SELECT c.name , count(m.id)
+    FROM Match m join Club c on c.name = m.host_club or c.name = m.guest_club
+    Group by c.name
+    Having  m.end time <= CURRNT_TIMESTAMP
+GO
+
+
+
+*/

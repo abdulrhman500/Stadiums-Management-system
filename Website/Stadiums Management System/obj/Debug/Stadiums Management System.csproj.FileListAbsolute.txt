@@ -1,0 +1,59 @@
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\Stadiums Management System.dll.config
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\Stadiums Management System.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\Stadiums Management System.pdb
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\csc.exe
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\csc.exe.config
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\csc.rsp
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\csi.exe
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\csi.exe.config
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\csi.rsp
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.AppContext.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Collections.Immutable.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Console.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Globalization.Calendars.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.IO.Compression.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.IO.Compression.ZipFile.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.IO.FileSystem.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Net.Http.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Net.Sockets.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Reflection.Metadata.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Threading.Tasks.Extensions.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.ValueTuple.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Xml.XPath.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\vbc.exe
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\vbc.exe.config
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\vbc.rsp
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\VBCSCompiler.exe
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\roslyn\VBCSCompiler.exe.config
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Stadiums-Management-system\Website\Stadiums Management System\obj\Debug\Stadiums Management System.csproj.AssemblyReference.cache
+E:\Stadiums-Management-system\Website\Stadiums Management System\obj\Debug\Stadiums Management System.csproj.CoreCompileInputs.cache
+E:\Stadiums-Management-system\Website\Stadiums Management System\obj\Debug\Stadiums Management System.csproj.CopyComplete
+E:\Stadiums-Management-system\Website\Stadiums Management System\obj\Debug\Stadiums Management System.dll
+E:\Stadiums-Management-system\Website\Stadiums Management System\obj\Debug\Stadiums Management System.pdb

@@ -54,7 +54,7 @@
 
             <br/>
 
-            <asp:Button Class="btn" ID="submit" runat="server" Text="Login " OnClick="MyButtonClickHandler" Height="30px" Width="70px" />
+            <asp:Button Class="btn " ID="submit" runat="server" Text="Login " OnClick="MyButtonClickHandler" Height="30px" Width="70px" />
             <br/>
             <a id ="Register_link" href="/Register.aspx"  target="_blank" rel="noopener noreferrer" font-size: 17px;>Register?</a>
           

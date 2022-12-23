@@ -9,34 +9,29 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Security.Cryptography;
 using System.Text;
+using System.Data;
 
 namespace Stadiums_Management_System
 {
     public partial class Login : System.Web.UI.Page
     {
+        private string connetionString = WebConfigurationManager.ConnectionStrings["SMS"].ToString();
+        private String[] UserTable = { 
+            "System_Admin",
+            "Fan" ,"Stadium_Manager" , 
+            "Club_Representative" ,
+            "Sports_ASsociation_Manager" , 
+            "SystemAdmin"
+        };
+
+
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
 
-            if (isLogedin())
-            {
-                // User has a session, display their user id
-                if (Session["expiryDate"] != null && (DateTime)Session["expiryDate"] < DateTime.Now)
-                {
-                    //redirect based on Session["role"]
-                    Server.Transfer("Register.aspx");
-                    Response.Write("Welcome, user with id: " + Session["UserId"]);
-                }
-                else genrateCookie();
-
-            }
-            else
-            {
-
-                genrateCookie();
-
-                Response.Write("Welcome, new user with id: " + Session["UserId"]);
-            }
+    
 
 
         }
@@ -67,32 +62,20 @@ namespace Stadiums_Management_System
         {
             String name = Username.Value;
             String pass = Password.Value;
-            string connetionString;
-            connetionString = WebConfigurationManager.ConnectionStrings["SMS"].ToString();
+           
             bool logedin = Login_check(connetionString, name, pass);
             if (logedin)
             {
-                HttpSessionState session = HttpContext.Current.Session;
-                string sessionID = session.SessionID;
-                Response.Write(session.SessionID + "<br/>");
-
-
-                Server.Transfer("Register.aspx");
-
-
-                //HttpCookie sessionIdCookie = Request.Cookies["ASP.NET_SessionId"];
-                //string csessionId = sessionIdCookie.Value;
-                //Response.Write(csessionId);
-                //if (csessionId != sessionID) { 
-                //}
-
-
+                send_to(name);
 
             }
+            
 
         }
 
 
+
+       
 
         private bool isValid(String x)
         {
@@ -102,61 +85,98 @@ namespace Stadiums_Management_System
         }
         private bool Login_check(string connetionString, string username, string password)
         {
-            //defensive programming 
+            //defensive againist SQL injection 
             if (!(isValid(username) && isValid(password)))
             {
                 status.Text = "Invalid username or password";
                 return false;
 
             }
-            SqlConnection cnn = null;
-            SqlDataReader reader = null;
-            try
+            String tb = "systemUser";
+            String cmd
+            = "select * from " + tb + " where username = @username  and password = @password";
+            SqlCommand sqlCommand = new SqlCommand(cmd, null);
+            sqlCommand.Parameters.Add("@username", SqlDbType.VarChar).Value = username;
+            sqlCommand.Parameters.Add("@password", SqlDbType.VarChar).Value = password;
+
+
+            DataTable table = SqlTable(connetionString, sqlCommand);
+            if (table != null && table.Rows.Count == 1)
             {
 
+                String Sname = table.Rows[0][1].ToString();
+                String Spass = table.Rows[0][2].ToString();
 
-                cnn = new SqlConnection(connetionString);
-                cnn.Open();
-
-                String command =
-                "select * from systemUser  where username = '" + username + "' and password = '" + password + "'";
-                SqlCommand sCommand = new SqlCommand(command, cnn);
-                reader = sCommand.ExecuteReader();
-                if (reader.HasRows && reader.Read() && reader.GetValue(1).ToString().Equals(username)
-                    && reader.GetValue(2).ToString().Equals(password))
+                if (Sname.Equals(username) && Spass.Equals(password))
                 {
-                    //                    print("" + VerifyMd5Hash(password, reader.GetValue(2).ToString()));
-                    //      status.Text = "Good";
-                    reader.Close();
-                    cnn.Close();
                     return true;
                 }
-                else
-                {
-                    status.Text = "Username or Password are incorrect";
-                    reader.Close();
-                    cnn.Close();
-                    return false;
-
-
-                }
-
-
-
+                status.Text = "Username or Password is incorrect";
+               
             }
-            catch (Exception ex)
-            {
-                status.Text = "Error Happened ! Please try again ";
-                //  Response.Write("select * from systemUser  where username = '" + username + "' and pASsword = '" + password + "'");
-                //Response.Write("<br>"+ex.Message);
-                Console.WriteLine(ex.Message);
+           else if (sqlCommand.Connection == null)      
+                status.Text = "Unexepected error happened, Please try again! ";
+            else status.Text = "Username or Password is incorrect";
+
+            return false;
+        }
+        
+
+
+        private DataTable SqlTable(String connetionString , SqlCommand sqlCmd) {
+
+            DataTable table = null;
+            SqlConnection cnn = null;
+            try {
+                
+                cnn = new SqlConnection(connetionString);
+                sqlCmd.Connection = cnn;
+                cnn.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter(sqlCmd);
+                table= new DataTable();
+                adapter.Fill(table);    
+             
+            }
+
+            catch (Exception e){
+//                Response.Write("<br>llll "+e.Message);
+                sqlCmd.Connection = null;
+            }
+            finally {
                 if (cnn != null)
                     cnn.Close();
-                if (reader != null) reader.Close();
-                return false;
+              
+                
             }
 
+            return table;
+
+    }
+
+ private void send_to(string username)
+        {
+
+
+            foreach (String tb in UserTable)
+            {
+
+                String cmd = "select * from "+tb+" where username =@username";
+                SqlCommand sqlcmd = new SqlCommand(cmd, null);
+                sqlcmd.Parameters.Add("@username", SqlDbType.VarChar).Value = username;
+                DataTable table = SqlTable(connetionString, sqlcmd);
+                if (table.Rows.Count > 0)
+                {
+                    Response.Redirect(WebConfigurationManager.AppSettings[tb]);
+                    break;
+                }
+
+            }
+
+
+
+
         }
+
         private void print(String x)
         {
 
@@ -166,12 +186,6 @@ namespace Stadiums_Management_System
 
 
         }
-
-
-
-
-
-
 
 
 

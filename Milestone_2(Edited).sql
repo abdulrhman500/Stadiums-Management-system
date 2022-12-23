@@ -1,5 +1,5 @@
-
-
+use DBProject;
+go
 create or alter PROC createAllTABLEs AS
 
 	CREATE TABLE SystemUser (

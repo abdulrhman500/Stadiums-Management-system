@@ -1,4 +1,4 @@
-﻿
+
 
 create or alter PROC createAllTABLEs AS
 
@@ -760,4 +760,3 @@ JOIN club gc
 return 
 end 
 GO
-

@@ -128,8 +128,7 @@ select * from Sports_Association_Manager;
 select * from System_Admin;
 
 select * from Ticket_purchase;
+select * from Match;
 
-select * from Stadium_Manager;
-select * from Club;
-select * from Fan;
+
 

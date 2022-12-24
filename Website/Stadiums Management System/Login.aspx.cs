@@ -15,7 +15,7 @@ namespace Stadiums_Management_System
 {
     public partial class Login : System.Web.UI.Page
     {
-        private string connetionString = WebConfigurationManager.ConnectionStrings["SMS"].ToString();
+        public static string connetionString = WebConfigurationManager.ConnectionStrings["SMS"].ToString();
         private String[] UserTable = { 
             "System_Admin",
             "Fan" ,"Stadium_Manager" , 
@@ -120,10 +120,10 @@ namespace Stadiums_Management_System
 
             return false;
         }
-        
 
 
-        private DataTable SqlTable(String connetionString , SqlCommand sqlCmd) {
+
+        public static DataTable SqlTable(String connetionString , SqlCommand sqlCmd) {
 
             DataTable table = null;
             SqlConnection cnn = null;

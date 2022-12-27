@@ -2,5 +2,8 @@
 /Website\Stadiums Management System/obj
 /Website/Stadiums Management System/bin
 /Website/Stadiums Management System/packages
+/Website\Stadiums Management System/Web.config
+/Website\Stadiums Management System/Web.Debug.config
+/Website\Stadiums Management System/Web.Release.config
 /Website/Stadiums Management System/Properties
 /.vs

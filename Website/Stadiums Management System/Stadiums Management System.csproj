@@ -70,13 +70,13 @@
   <ItemGroup>
     <Content Include="Fan.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Purshase.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fan.aspx.cs">
       <DependentUpon>Fan.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Fan.aspx.designer.cs">
       <DependentUpon>Fan.aspx</DependentUpon>
@@ -89,6 +89,13 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Purshase.aspx.cs">
+      <DependentUpon>Purshase.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Purshase.aspx.designer.cs">
+      <DependentUpon>Purshase.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

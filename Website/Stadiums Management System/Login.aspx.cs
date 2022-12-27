@@ -18,7 +18,8 @@ namespace Stadiums_Management_System
         public static string connetionString = WebConfigurationManager.ConnectionStrings["SMS"].ToString();
         private String[] UserTable = { 
             "System_Admin",
-            "Fan" ,"Stadium_Manager" , 
+            "Fan" ,
+            "Stadium_Manager" , 
             "Club_Representative" ,
             "Sports_ASsociation_Manager" , 
             "SystemAdmin"
@@ -153,7 +154,46 @@ namespace Stadiums_Management_System
 
     }
 
- private void send_to(string username)
+
+
+
+        public static int SqlInsert(String connetionString, SqlCommand sqlCmd)
+        {
+
+            int rowsAffected = -1;
+            SqlConnection cnn = null;
+            try
+            {
+
+                cnn = new SqlConnection(connetionString);
+                sqlCmd.Connection = cnn;
+                cnn.Open();
+                rowsAffected = sqlCmd.ExecuteNonQuery();
+
+
+
+            }
+
+            catch (Exception e)
+            {
+            
+            ///    ("<br>llll " + e.Message);
+                sqlCmd.Connection = null;
+            }
+            finally
+            {
+                if (cnn != null)
+                    cnn.Close();
+
+
+            }
+
+            return rowsAffected;
+
+        }
+
+
+        private void send_to(string username)
         {
 
 

@@ -171,7 +171,7 @@ namespace SMS
 
         public static String SqlInsert(String connetionString, SqlCommand sqlCmd)
         {
-            String H = "  dobe ";
+            String H = "Done Without Errors";
             
             int rowsAffected = -1;
             SqlConnection cnn = null;
@@ -191,7 +191,7 @@ namespace SMS
             catch (Exception e)
             {
             
-                H=("<br> " + e.Message);
+                H=(" Error : <br> " + e.Message);
                 sqlCmd.Connection = null;
             }
             finally
@@ -203,7 +203,7 @@ namespace SMS
             }
             
 
-            return H+rowsAffected+"";
+            return H+" Nunber of rows affected :  "+rowsAffected+" ";
 
         }
 

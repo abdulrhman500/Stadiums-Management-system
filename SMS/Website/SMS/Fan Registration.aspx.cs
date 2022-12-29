@@ -71,7 +71,9 @@ namespace SMS
                 sqlcmd.Parameters.Add("@birth_dath", SqlDbType.DateTime).Value = DateTime.Parse(date);
                 sqlcmd.Parameters.AddWithValue("@address", address);
                 sqlcmd.Parameters.Add("@phone", SqlDbType.Int).Value = int.Parse(phone);
-                SMS.Login.SqlInsert(Login.connetionString, sqlcmd);
+                
+                Response.Write(SMS.Login.SqlInsert(Login.connetionString, sqlcmd));
+
            
             
             

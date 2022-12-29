@@ -64,6 +64,14 @@
             font-size: 16px;
             color: red;
         }
+        
+        .err {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: red;
+            align-content:center;
+            text-align:center;
+        }
        
     </style>
 
@@ -72,21 +80,27 @@
     <form id="form1" runat="server">
       <div id="info">
             <asp:Label ID="Name" runat="server" Text="Name"></asp:Label>
-            <asp:TextBox ID="Name_Text" runat="server"></asp:TextBox>
-            <br/>
+            <asp:TextBox ID="Name_Text" runat="server" ></asp:TextBox>
+            <asp:Label ID="name_status" runat="server" Text="" CssClass="err"></asp:Label>
+
+            <br />
+
             <asp:Label ID="Username" runat="server" Text="Username"></asp:Label>
             <asp:TextBox ID="Username_text" runat="server"></asp:TextBox>
-            <br/>
+            <asp:Label ID="Username_status" runat="server" Text="" CssClass="err"></asp:Label>
 
+            <br />
             <asp:Label ID="Password" runat="server" Text="Password"></asp:Label>
-            <asp:TextBox ID="Password_text" runat="server"></asp:TextBox>
-            <br/>
+            <asp:TextBox ID="Password_text" runat="server" ></asp:TextBox>
+            <asp:Label ID="pass_status" runat="server" Text="" CssClass="err"></asp:Label>
+
+            <br />
 
 
              <asp:Label ID="status" runat="server" Text=""></asp:Label>
            <br/>
 
-            <asp:Button ID="Register" runat="server" Text="Register as Sports Association Manager" />
+            <asp:Button ID="Register" runat="server" Text="Register as Sports Association Manager" OnClick="Register_Click"/>
 <br/>
 
 

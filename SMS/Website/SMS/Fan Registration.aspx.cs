@@ -99,6 +99,7 @@ namespace SMS
                     status.Text = "Already exits or internal error happened ";
                 }
                 else {
+                    Session.Abandon();
                     Response.Redirect("Login.aspx");
                 }
            
@@ -155,7 +156,7 @@ namespace SMS
         {
            
 
-            if (x == null || x.Length == 0 || x[0] == '\'' || x.Contains("--") || x.Contains("/*") || x.Contains("*/")) return false;
+            if (x == null || x.Length == 0 || x[0] == '\'' || x.Contains("--") || x.Contains("/*") || x.Contains("*/") ||x.Length>20) return false;
             return true;
         }
     }

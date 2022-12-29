@@ -11,7 +11,7 @@ namespace SMS
 {
 
 
-    public partial class Club_Representative_Registration
+    public partial class Stadium_Manager_Registration
     {
 
         /// <summary>
@@ -42,6 +42,15 @@ namespace SMS
         protected global::System.Web.UI.WebControls.TextBox Name_Text;
 
         /// <summary>
+        /// name_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label name_status;
+
+        /// <summary>
         /// Username control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace SMS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Username_text;
+
+        /// <summary>
+        /// Username_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Username_status;
 
         /// <summary>
         /// Password control.
@@ -78,22 +96,40 @@ namespace SMS
         protected global::System.Web.UI.WebControls.TextBox Password_text;
 
         /// <summary>
-        /// stadium_name control.
+        /// pass_status control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label stadium_name;
+        protected global::System.Web.UI.WebControls.Label pass_status;
 
         /// <summary>
-        /// stadium_name_text control.
+        /// stadium control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox stadium_name_text;
+        protected global::System.Web.UI.WebControls.Label stadium;
+
+        /// <summary>
+        /// stadium_text control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox stadium_text;
+
+        /// <summary>
+        /// stadium_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label stadium_status;
 
         /// <summary>
         /// status control.

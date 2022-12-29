@@ -9,12 +9,13 @@ using System.Web.UI.WebControls;
 
 namespace SMS
 {
-    public partial class Sports_Association_Manager_Registration : System.Web.UI.Page
+    public partial class Stadium_Manager_Registration : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
+
 
         protected void Register_Click(object sender, EventArgs e)
         {
@@ -23,10 +24,9 @@ namespace SMS
 
             String name = Name_Text.Text;
             String username = Username_text.Text;
-            //Response.Write("vlgl,blglb,      glmbl,       " + username);
-            String password = Password_text.Text;
-          
 
+            String password = Password_text.Text;
+            String st = stadium_text.Text;
 
             bool error = false;
             if (!isValid(name) || !isname(name))
@@ -47,22 +47,30 @@ namespace SMS
             {
                 pass_status.Text = "";
             }
-           if (!error)
+            if (!isValid(st))
+            { stadium_status.Text = "* Stadium name is not valid or it contains more than 20 letter"; error = true; }
+            else
+            {
+                stadium_status.Text = "";
+            }
+
+            if (!error)
             {
 
 
 
-                String cmd = "addAssociationManager";
+                String cmd = "addStadiumManager";
                 SqlCommand sqlcmd = new SqlCommand(cmd, null);
 
                 sqlcmd.CommandType = CommandType.StoredProcedure;
-                //@uname VARCHAR(20), @username VARCHAR(20), @pASsword VARCHAR(20) AS
-                sqlcmd.Parameters.AddWithValue("@uname", name);
+
+                sqlcmd.Parameters.AddWithValue("@name", name);
                 sqlcmd.Parameters.AddWithValue("@username", username);
                 sqlcmd.Parameters.AddWithValue("@pASsword", password);
-               
+                sqlcmd.Parameters.AddWithValue("@stadium_name", st);
+
                 String feedback = (SMS.Login.SqlInsert(Login.connetionString, sqlcmd));
-                Response.Write(feedback);
+                //Response.Write(feedback);
                 if (feedback.Split(' ')[0] == "Error")
                 {
                     status.Text = "Already exits or internal error happened ";
@@ -128,8 +136,8 @@ namespace SMS
 
             if (x == null || x.Length == 0 || x[0] == '\'' || x.Contains("--") || x.Contains("/*") || x.Contains("*/") || x.Length > 20) return false;
             return true;
-
         }
+
 
     }
 }

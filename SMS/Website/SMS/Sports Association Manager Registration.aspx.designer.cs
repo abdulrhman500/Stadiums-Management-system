@@ -42,6 +42,15 @@ namespace SMS
         protected global::System.Web.UI.WebControls.TextBox Name_Text;
 
         /// <summary>
+        /// name_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label name_status;
+
+        /// <summary>
         /// Username control.
         /// </summary>
         /// <remarks>
@@ -60,6 +69,15 @@ namespace SMS
         protected global::System.Web.UI.WebControls.TextBox Username_text;
 
         /// <summary>
+        /// Username_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Username_status;
+
+        /// <summary>
         /// Password control.
         /// </summary>
         /// <remarks>
@@ -76,6 +94,15 @@ namespace SMS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Password_text;
+
+        /// <summary>
+        /// pass_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label pass_status;
 
         /// <summary>
         /// status control.

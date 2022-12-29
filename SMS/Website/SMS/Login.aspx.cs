@@ -33,6 +33,7 @@ namespace SMS
             //Response.Redirect("Fan.aspx");
             if (isLogedin()) {
                 if(Session["role"] !=null)
+                   
                 Redirect(Session["role"].ToString());
             
             
@@ -52,6 +53,7 @@ namespace SMS
             HttpCookie cookie = new HttpCookie("userid", Session.SessionID);
             cookie.Secure = true;
             Response.Cookies.Add(cookie);
+
 
            
         }
@@ -79,6 +81,7 @@ namespace SMS
                 {
                     genrateCookie();
                     Session["role"] = role;
+                    
                     Redirect(role);
                     
                 }
@@ -123,6 +126,7 @@ namespace SMS
 
                 if (Sname.Equals(username) && Spass.Equals(password))
                 {
+                    Session["username"] = username;
                     return true;
                 }
                 status.Text = "Username or Password is incorrect";
@@ -171,7 +175,7 @@ namespace SMS
 
         public static String SqlInsert(String connetionString, SqlCommand sqlCmd)
         {
-            String H = "Done Without Errors";
+            String H = "Done successfully";
             
             int rowsAffected = -1;
             SqlConnection cnn = null;
@@ -191,7 +195,7 @@ namespace SMS
             catch (Exception e)
             {
             
-                H=(" Error : <br> " + e.Message);
+                H=("Error : <br> " + e.Message);
                 sqlCmd.Connection = null;
             }
             finally

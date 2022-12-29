@@ -35,24 +35,45 @@ namespace SMS
 
 
             bool error=false;
-            if (!isValid(name) ||  !isname(name))
-            { name_status.Text= "* Name should  contain only letters and no more than 20 letter "; error = true; }
-            if (!isValid(username) || !isUsername(username) ) 
+            if (!isValid(name) || !isname(name))
+            { name_status.Text = "* Name should  contain only letters and no more than 20 letter "; error = true; }
+            else { name_status.Text = ""; }
+            if (!isValid(username) || !isUsername(username))
             {
-                
-                Username_status.Text = "* Username should only contain letters , @ , numbers and no more than 20 letter "  ; error = true; }
-            if (!isValid(password)) 
+
+                Username_status.Text = "* Username should only contain letters , @ , numbers and no more than 20 letter "; error = true;
+            }
+            else {
+                Username_status.Text = "";
+            }
+            if (!isValid(password))
             { pass_status.Text = "* Password is not valid or it contains more than 20 letter"; error = true; }
-            if (!isValid(id) || !isNum(id)) 
-            { id_status.Text = "* National Id should only contain numbers and  no more than 20 letter" ; error = true; }
-            if (!isValid(phone) ||  !isNum(phone)) 
-            { phone_status.Text = "* Phone  should  only contain numbers and no more than 20 letter" ; error = true; }
-            if (!isValid(address)) 
-            { address_status.Text= "* Address is not valid or it contains more than 20 letter" ; error = true; }
+            else {
+                pass_status.Text = "";
+            }
+            if (!isValid(id) || !isNum(id))
+            { id_status.Text = "* National Id should only contain numbers and  no more than 20 letter"; error = true; }
+            else {
+                id_status.Text = "";
+            }
+            if (!isValid(phone) || !isNum(phone))
+            { phone_status.Text = "* Phone  should  only contain numbers and no more than 20 letter"; error = true; }
+            else {
+                phone_status.Text = "";
+            }
+            if (!isValid(address))
+            { address_status.Text = "* Address is not valid or it contains more than 20 letter"; error = true; }
+            else {
+                address_status.Text = "";
+            }
             if (date == "" || DateTime.Parse(date) >= DateTime.Now)
             {
                 bith_status.Text = "* Bith date is not valid";
                 error = true;
+            }
+            else {
+                bith_status.Text = "";
+
             }
             if (!error)
             {
@@ -72,8 +93,14 @@ namespace SMS
                 sqlcmd.Parameters.AddWithValue("@address", address);
                 sqlcmd.Parameters.Add("@phone", SqlDbType.Int).Value = int.Parse(phone);
                 
-                Response.Write(SMS.Login.SqlInsert(Login.connetionString, sqlcmd));
-
+              String feedback =(SMS.Login.SqlInsert(Login.connetionString, sqlcmd));
+                if (feedback.Split(' ')[0] == "Error")
+                {
+                    status.Text = "Already exits or internal error happened ";
+                }
+                else {
+                    Response.Redirect("Login.aspx");
+                }
            
             
             
@@ -103,11 +130,14 @@ namespace SMS
 
                 return true;
         }
-        private bool isname(string username)
+        private bool isname(string name)
         {
 
-            for (int i = 0; i < username.Length; i++)
-                if (!char.IsLetter(username[i])) return false;
+            for (int i = 0; i < name.Length; i++)
+            {
+                if (name[i] == ' ') continue;
+                if (!char.IsLetter(name[i])) return false;
+            }
             return true;
         
         }

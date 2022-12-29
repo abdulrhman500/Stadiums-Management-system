@@ -11,28 +11,47 @@ using System.Drawing;
 
 namespace Stadiums_Management_System
 {
-    public partial class Purshase : System.Web.UI.Page
+    public partial class Purchase : System.Web.UI.Page
     {
         String host ;
         String guest;
         DateTime date ;
         String stadium;
-       public static bool PurshaseDone = false;
+       public static bool PurchaseDone = false;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!isLogedin() || Session.IsNewSession)
+                Response.Redirect("Login.aspx");
 
-                Response.Write("Page load " + PurshaseDone + " ");
-                Control div = Page.FindControl("IdConfirm");
-                if (Session["host"] != null && !PurshaseDone)
-                {
+            if (PurchaseDone) {
+                Session.Remove("host");
+                Response.Redirect("Fan.aspx");
 
-                    host = Session["host"].ToString();
-                    guest = Session["guest"].ToString();
-                    date = DateTime.Parse(Session["date"].ToString());
-                    stadium = Session["stadium"].ToString();
+            }
 
-                    AddConfirmationDiv(host, guest, date, stadium);
-                }
+            ba.Visible = false;
+            Done.Visible = false;
+            // Control div = Page.FindControl("IdConfirm");
+            if (Session["host"] != null && !PurchaseDone)
+            {
+
+                host = Session["host"].ToString();
+                guest = Session["guest"].ToString();
+                date = DateTime.Parse(Session["date"].ToString());
+                stadium = Session["stadium"].ToString();
+
+                AddConfirmationDiv(host, guest, date, stadium);
+
+
+            }
+           else if(Session["host"] == null)
+            {
+            
+                ba.Visible = true;
+                Done.Visible=true; 
+
+            }
+
             }
         
 
@@ -83,33 +102,56 @@ namespace Stadiums_Management_System
         }
         protected void purchase_btn_click(object sender, EventArgs e)
         {
-            
-            PurshaseDone = false;
 
-           
-            Response.Write("The button was clicked!");
+            PurchaseDone = true;
+            if (!PurchaseDone)
+            {
 
-            if (PurshaseDone)
+                TextBox id = (TextBox)Page.FindControl("nationalID");
+
+                String nationalID = id.Text;
+                String rowsCount = purchase(nationalID, host, guest, date);
+            }
+            if (PurchaseDone)
             {
                 Control div = Page.FindControl("IdConfirm");
                 form1.Controls.Remove(div);
+
+
+                Session.Remove("host");
+                ba.Visible = true;
+                Done.Text = "Purchase done Successfully";
+                Done.Visible = true;
+              
+
+
+
             }
+
+        }
+        protected void back_click(object sender, EventArgs e)
+        {
+
+            Response.Redirect("Fan.aspx");
+
+
+
         }
 
 
-        private void purchase(String NationalID, String HostClubName, String GuestClubName, DateTime dt)
+            private String purchase(String NationalID, String HostClubName, String GuestClubName, DateTime dt)
         {
             //String cmd = "";
             SqlCommand sqlCmd = new SqlCommand("purchaseTicket", null);
             sqlCmd.CommandType = CommandType.StoredProcedure;
 
             sqlCmd.Parameters.Add("@nationalID", SqlDbType.VarChar).Value = NationalID;
-            sqlCmd.Parameters.Add("@@h_clubName", SqlDbType.VarChar).Value = HostClubName;
+            sqlCmd.Parameters.Add("@h_clubName", SqlDbType.VarChar).Value = HostClubName;
             sqlCmd.Parameters.Add("@g_clubName", SqlDbType.VarChar).Value = GuestClubName;
             sqlCmd.Parameters.Add("@startTime", SqlDbType.DateTime).Value = dt;
 
 
-            Login.SqlInsert(Login.connetionString, sqlCmd);
+           return  Login.SqlInsert(Login.connetionString, sqlCmd);
 
 
         }
@@ -122,6 +164,14 @@ namespace Stadiums_Management_System
             return br;
         }
 
+        private bool isLogedin()
+        {
 
+
+            return Session.SessionID != null && Request.Cookies["userid"].Value != null && Session["role"] != null
+                && Request.Cookies["userid"].Value.ToString().Equals(Session.SessionID.ToString());
+
+        }
     }
+   
 }

@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using Stadiums_Management_System;
 using System.Drawing;
 using System.Web.UI.HtmlControls;
+using System.Web.Configuration;
 
 namespace Stadiums_Management_System
 {
@@ -36,10 +37,19 @@ namespace Stadiums_Management_System
     }
     public partial class Fan : System.Web.UI.Page
     {
-        int C = 0;
+       // int C = 0;
         private  DataTable table = null;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (! isLogedin())
+               Response.Redirect("Login.aspx");
+
+
+            if (Purchase.PurchaseDone)
+            {
+                Response.Write("Purchase done");
+                Response.Write("<br>" + Session["host"] + " " + Session["guest"]);
+            }
 
             table = loadTable();
 
@@ -57,7 +67,7 @@ namespace Stadiums_Management_System
 
                 TicketTable.DataSource = table;
                 TicketTable.DataBind();
-        
+
 
 
             }
@@ -91,8 +101,8 @@ namespace Stadiums_Management_System
                     Session["guest"] = guest;
                     Session["date"] = date.ToString();
                     Session["stadium"] = stadium;
-                    Purshase.PurshaseDone = false;
-                    Response.Redirect("Purshase.aspx");
+                    Purchase.PurchaseDone = false;
+                    Response.Redirect("Purchase.aspx");
 
                    // AddConfirmationDiv(host, guest, date, stadium);
 
@@ -118,7 +128,7 @@ namespace Stadiums_Management_System
  
            SqlCommand scmd = new SqlCommand(cmd, null);
            scmd.CommandType = CommandType.Text;
-           DateTime dt = DateTime.Now;
+            DateTime dt = DateTime.Parse("2022-01-01"); //DateTime.Now;
            scmd.Parameters.Add("@date", SqlDbType.DateTime).Value = dt;
             return Login.SqlTable(Login.connetionString, scmd);
         }
@@ -131,7 +141,21 @@ namespace Stadiums_Management_System
 
 
         }
+        private void Redirect(String role)
+        {
+            String page = WebConfigurationManager.AppSettings["Fan"];
+            Response.Redirect(page);
+            // Server.Transfer(page);
+        }
 
+        private bool isLogedin()
+        {
+            
+
+            return Session.SessionID != null && Request.Cookies["userid"] != null && Session["role"] != null
+                && Request.Cookies["userid"].Value.ToString().Equals(Session.SessionID.ToString());
+
+        }
 
     }
 }

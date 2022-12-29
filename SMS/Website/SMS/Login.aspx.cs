@@ -30,6 +30,13 @@ namespace Stadiums_Management_System
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Response.Redirect("Fan.aspx");
+            if (isLogedin()) {
+                if(Session["role"] !=null)
+                Redirect(Session["role"].ToString());
+            
+            
+            }
 
 
     
@@ -39,23 +46,22 @@ namespace Stadiums_Management_System
 
         private void genrateCookie()
         {
-            Guid userId = Guid.NewGuid();
-            HttpCookie cookie = new HttpCookie("UserId", userId.ToString());
-            cookie.Expires = DateTime.Now.AddMinutes(15);
-            Session["expiryDate"] = DateTime.Now.AddMinutes(15);
-            Session["UserId"] = userId.ToString();
-            Session["role"] = null;
+          
+           
+           
+            HttpCookie cookie = new HttpCookie("userid", Session.SessionID);
             cookie.Secure = true;
             Response.Cookies.Add(cookie);
 
+           
         }
 
 
-        private bool isLogedin()
+        private  bool isLogedin()
         {
 
-            return Session["UserId"] != null && Request.Cookies["UserId"] != null
-                && Request.Cookies["UserId"].Equals(Session["UserId"]);
+            return Session.SessionID != null && Request.Cookies["userid"] != null && Session["role"] != null
+                && Request.Cookies["userid"].Value.ToString().Equals(Session.SessionID.ToString());
 
         }
 
@@ -67,8 +73,15 @@ namespace Stadiums_Management_System
             bool logedin = Login_check(connetionString, name, pass);
             if (logedin)
             {
-                send_to(name);
 
+                String role = GetRole(name);
+                if (role != null)
+                {
+                    genrateCookie();
+                    Session["role"] = role;
+                    Redirect(role);
+                    
+                }
             }
             
 
@@ -156,10 +169,10 @@ namespace Stadiums_Management_System
 
 
 
-
-        public static int SqlInsert(String connetionString, SqlCommand sqlCmd)
+        public static String SqlInsert(String connetionString, SqlCommand sqlCmd)
         {
-
+            String H = "  dobe ";
+            
             int rowsAffected = -1;
             SqlConnection cnn = null;
             try
@@ -168,8 +181,9 @@ namespace Stadiums_Management_System
                 cnn = new SqlConnection(connetionString);
                 sqlCmd.Connection = cnn;
                 cnn.Open();
-                rowsAffected = sqlCmd.ExecuteNonQuery();
 
+                
+                rowsAffected = sqlCmd.ExecuteNonQuery();
 
 
             }
@@ -177,7 +191,7 @@ namespace Stadiums_Management_System
             catch (Exception e)
             {
             
-            ///    ("<br>llll " + e.Message);
+                H=("<br> " + e.Message);
                 sqlCmd.Connection = null;
             }
             finally
@@ -187,13 +201,14 @@ namespace Stadiums_Management_System
 
 
             }
+            
 
-            return rowsAffected;
+            return H+rowsAffected+"";
 
         }
 
 
-        private void send_to(string username)
+        private String GetRole(string username)
         {
 
 
@@ -206,15 +221,21 @@ namespace Stadiums_Management_System
                 DataTable table = SqlTable(connetionString, sqlcmd);
                 if (table.Rows.Count > 0)
                 {
-                    Response.Redirect(WebConfigurationManager.AppSettings[tb]);
-                    break;
+                    return
+                         tb;
+                    
                 }
 
             }
 
+            return null;
 
 
-
+        }
+        private void Redirect(String role) {
+            String page = WebConfigurationManager.AppSettings[role];
+           Response.Redirect(page);
+           // Server.Transfer(page);
         }
 
         private void print(String x)

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Purshase.aspx.cs" Inherits="Stadiums_Management_System.Purshase" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Purchase.aspx.cs" Inherits="Stadiums_Management_System.Purchase" %>
 
 <!DOCTYPE html>
 
@@ -6,6 +6,9 @@
 <head runat="server">
     <title></title>
     <style>
+        .hidden {
+           /**/ 
+        }
         body {
             background: #ABCDEF;
             font-family: Assistant, sans-serif;
@@ -40,8 +43,11 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-
+        <div id="hiddenDiv"  runat="server">
+            <asp:Label ID="Done" runat="server" Text="Please select a ticket"></asp:Label>
+           
+            <asp:Button ID="ba" runat="server" Text="Back to Fan Page" OnClick="back_click" />
+          
         </div>
     </form>
 </body>

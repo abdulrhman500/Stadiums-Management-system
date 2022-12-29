@@ -5,6 +5,11 @@
       "ProjectGuid": "c1a18818-38f8-4f4c-8b0b-6c113fa71394",
       "DisplayName": "SMS",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 1

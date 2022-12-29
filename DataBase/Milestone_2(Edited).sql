@@ -1,4 +1,5 @@
-use DBProject;
+drop database DBProject;
+use CompanyDB;
 go
 create or alter PROC createAllTABLEs AS
 
@@ -552,7 +553,7 @@ insert into @RET
 return 
 end 
 GO
-
+select * from  
 CREATE OR ALTER FUNCTION availableMatchesToAttend 
 (@time DATETIME)
 RETURNS TABLE
@@ -566,18 +567,18 @@ AS
 			WHERE t.is_available = 1 AND m.starting_time >= @time
 	)
 GO
-
+select * from availableMatchesToAttend('2022-01-01');
 GO
 CREATE OR ALTER PROCEDURE purchaseTicket (
 @nationalID VARCHAR(20), @h_clubName VARCHAR(20),
 @g_clubName VARCHAR(20), @startTime DATETIME
 ) AS
 
-DECLARE @hc int =(SELECT c.id FROM club c WHERE c.name=@h_clubName);
-DECLARE @gc int =(SELECT c.id FROM club c WHERE c.name=@g_clubName);
+DECLARE @hc int =(SELECT top(1) c.id FROM club c WHERE c.name=@h_clubName);
+DECLARE @gc int =(SELECT top(1) c.id FROM club c WHERE c.name=@g_clubName);
 
 
-DECLARE @matchID INT = (SELECT m.id FROM Match m 
+DECLARE @matchID INT = (SELECT  top(1) m.id FROM Match m 
 					WHERE m.guest_club =@gc AND m.host_club=@hc
 					AND m.starting_time =@startTime ); 
 
@@ -585,7 +586,7 @@ DECLARE @TicketId INT ;
 SELECT top (1) @TicketId =  t.id FROM Ticket t
 						WHERE t.Match_id =@matchID AND t.is_available = 1;
 
-DECLARE @fan_notBlocked BIT = (SELECT not_blocked FROM Fan 
+DECLARE @fan_notBlocked BIT = (SELECT  top(1) not_blocked FROM Fan 
 						WHERE national_id = @nationalID);
 
 if @ticketId IS NOT NULL AND @fan_notBlocked = 1
@@ -595,9 +596,12 @@ INSERT INTO Ticket_purchASe VALUES(@TicketId,@nationalID);
 
 end 
 GO
-
-
-
+exec dbo.purchaseTicket'11','Roma','Zamalek','2022-08-01 20:00:00'
+;
+go
+select * from Match;
+exec createAllTABLEs;
+exec clearAllTABLEs;
 CREATE OR ALTER PROCEDURE UPDATEMatchHost 
 @hostclubname VARCHAR(20), @guestclubname VARCHAR(20),@starttime DATETIME
 AS

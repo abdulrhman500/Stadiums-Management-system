@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Stadiums_Management_System
+namespace SMS
 {
     public partial class Register : System.Web.UI.Page
     {

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Sysadmin.aspx.cs" Inherits="Stadiums_Management_System.Sysadmin" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Sysadmin.aspx.cs" Inherits="SMS.Sysadmin" %>
 
 <!DOCTYPE html>
 

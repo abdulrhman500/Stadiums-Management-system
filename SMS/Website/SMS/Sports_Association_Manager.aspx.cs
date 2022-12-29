@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-namespace Stadiums_Management_System
+namespace SMS
 {
     public partial class Sports_Association_Manager : System.Web.UI.Page
     {

@@ -9,7 +9,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Drawing;
 
-namespace Stadiums_Management_System
+namespace SMS
 {
     public partial class Purchase : System.Web.UI.Page
     {

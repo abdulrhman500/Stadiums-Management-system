@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Sports_Association_Manager.aspx.cs" Inherits="Stadiums_Management_System.Sports_Association_Manager" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Sports_Association_Manager.aspx.cs" Inherits="SMS.Sports_Association_Manager" %>
 
 <!DOCTYPE html>
 

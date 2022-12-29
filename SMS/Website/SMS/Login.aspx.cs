@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Data;
 
-namespace Stadiums_Management_System
+namespace SMS
 {
     public partial class Login : System.Web.UI.Page
     {

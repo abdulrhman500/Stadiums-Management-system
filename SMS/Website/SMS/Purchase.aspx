@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Purchase.aspx.cs" Inherits="Stadiums_Management_System.Purchase" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Purchase.aspx.cs" Inherits="SMS.Purchase" %>
 
 <!DOCTYPE html>
 

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Stadiums_Management_System
+namespace SMS
 {
 
 

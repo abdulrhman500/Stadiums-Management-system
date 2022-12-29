@@ -6,12 +6,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Stadiums_Management_System;
+using SMS;
 using System.Drawing;
 using System.Web.UI.HtmlControls;
 using System.Web.Configuration;
 
-namespace Stadiums_Management_System
+namespace SMS
 {
     public class GridViewButtonTemplate : ITemplate
     {

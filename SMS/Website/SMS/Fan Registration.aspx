@@ -68,6 +68,8 @@
             font-family: Arial, sans-serif;
             font-size: 12px;
             color: red;
+            align-content:center;
+            text-align:center;
         }
 
         .calender {
@@ -87,30 +89,30 @@
     <form id="form1" runat="server">
         <div id="info">
             <asp:Label ID="Name" runat="server" Text="Name"></asp:Label>
-            <asp:TextBox ID="Name_Text" runat="server" OnTextChanged="name_TextChanged"></asp:TextBox>
+            <asp:TextBox ID="Name_Text" runat="server" ></asp:TextBox>
             <asp:Label ID="name_status" runat="server" Text="" CssClass="err"></asp:Label>
 
             <br />
 
             <asp:Label ID="Username" runat="server" Text="Username"></asp:Label>
-            <asp:TextBox ID="Username_text" runat="server" OnTextChanged="username_TextChanged"></asp:TextBox>
+            <asp:TextBox ID="Username_text" runat="server"></asp:TextBox>
             <asp:Label ID="Username_status" runat="server" Text="" CssClass="err"></asp:Label>
 
             <br />
             <asp:Label ID="Password" runat="server" Text="Password"></asp:Label>
-            <asp:TextBox ID="Password_text" runat="server" OnTextChanged="password_TextChanged"></asp:TextBox>
+            <asp:TextBox ID="Password_text" runat="server" ></asp:TextBox>
             <asp:Label ID="pass_status" runat="server" Text="" CssClass="err"></asp:Label>
 
             <br />
 
             <asp:Label ID="National_ID" runat="server" Text="National ID"></asp:Label>
-            <asp:TextBox ID="National_ID_text" runat="server" OnTextChanged="id_TextChanged"></asp:TextBox>
+            <asp:TextBox ID="National_ID_text" runat="server" ></asp:TextBox>
             <asp:Label ID="id_status" runat="server" Text="" CssClass="err"></asp:Label>
 
             <br />
 
             <asp:Label ID="Phone" runat="server" Text="Phone"></asp:Label>
-            <asp:TextBox ID="Phone_text" runat="server" OnTextChanged="phone_TextChanged"></asp:TextBox>
+            <asp:TextBox ID="Phone_text" runat="server" ></asp:TextBox>
             <asp:Label ID="phone_status" runat="server" Text="" CssClass="err"></asp:Label>
 
             <br />

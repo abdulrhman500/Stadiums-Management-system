@@ -22,7 +22,7 @@ namespace SMS
             "Stadium_Manager" , 
             "Club_Representative" ,
             "Sports_ASsociation_Manager" , 
-            "SystemAdmin"
+            
         };
 
 

@@ -31,7 +31,7 @@ namespace SMS
 
             ba.Visible = false;
             Done.Visible = false;
-            // Control div = Page.FindControl("IdConfirm");
+            
             if (Session["host"] != null && !PurchaseDone)
             {
 
@@ -103,7 +103,7 @@ namespace SMS
         protected void purchase_btn_click(object sender, EventArgs e)
         {
 
-            PurchaseDone = true;
+         
             if (!PurchaseDone)
             {
 
@@ -111,6 +111,10 @@ namespace SMS
 
                 String nationalID = id.Text;
                 String rowsCount = purchase(nationalID, host, guest, date);
+                status.ForeColor = Color.Red; status.Font.Bold = true;
+                if (rowsCount.Contains("-1"))
+                    status.Text = "Internal Error "+rowsCount;
+                else PurchaseDone = true;
             }
             if (PurchaseDone)
             {
@@ -168,7 +172,7 @@ namespace SMS
         {
 
 
-            return Session.SessionID != null && Request.Cookies["userid"].Value != null && Session["role"] != null
+            return Session.SessionID != null && Request.Cookies["userid"] != null && Session["role"] != null
                 && Request.Cookies["userid"].Value.ToString().Equals(Session.SessionID.ToString());
 
         }

@@ -31,33 +31,30 @@ namespace SMS
             button.CommandName = "btn_clicked";
             button.CommandArgument = (count++)+"";
             button.BorderColor = Color.Red;
+            //button.Click += show_Match_Click;
             container.Controls.Add(button);
 
         }
+
+       
     }
     public partial class Fan : System.Web.UI.Page
     {
        // int C = 0;
         private  DataTable table = null;
+        static bool visible = false;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (! isLogedin())
-               Response.Redirect("Login.aspx");
+            if (!isLogedin())
+                Response.Redirect("Login.aspx");
 
-
-            if (Purchase.PurchaseDone)
-            {
-                Response.Write("Purchase done");
-                Response.Write("<br>" + Session["host"] + " " + Session["guest"]);
-            }
+            Response.Write(sender.ToString()+" <br> "+e.GetType().FullName);
 
             table = loadTable();
 
             if (table != null)
             {
-                //TicketTable.AutoGenerateColumns = true;
-                //TicketTable.AutoGenerateSelectButton = true;
-                //TicketTable.EnablePersistedSelection = true;
+
                 GridViewButtonTemplate.count = 0;
                 TemplateField templateField = new TemplateField();
 
@@ -72,19 +69,20 @@ namespace SMS
 
             }
 
-
         }
 
   
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 
-            
-
+            Response.Write("djjjjjjjjjjjjjjjjjjjjjjjjj");
+//            Response.Redirect("Login.aspx");
 
             if (e.CommandName.Equals("btn_clicked"))
             {
                 int row = int.Parse(e.CommandArgument.ToString());
+                Response.Write("<br>djjjjjjjjjjjjjjjj22222222222222222222222222222222222222222222222222222222222");
+
 
                 if (table != null)
                 {
@@ -96,7 +94,6 @@ namespace SMS
                     String stadium = table.Rows[row][3].ToString();
 
 
-                    //    purchase();
                     Session["host"] = host;
                     Session["guest"] = guest;
                     Session["date"] = date.ToString();
@@ -104,7 +101,7 @@ namespace SMS
                     Purchase.PurchaseDone = false;
                     Response.Redirect("Purchase.aspx");
 
-                   // AddConfirmationDiv(host, guest, date, stadium);
+                   
 
 
                 }
@@ -118,18 +115,20 @@ namespace SMS
 
            
         }
-      
 
-      
-        private DataTable loadTable() {
+
+
+        private DataTable loadTable()
+        {
 
             String cmd = "select * from availableMatchesToAttend (@date)";
-            //string cmd = "select * from club";
- 
-           SqlCommand scmd = new SqlCommand(cmd, null);
-           scmd.CommandType = CommandType.Text;
-            DateTime dt = DateTime.Parse("2022-01-01"); //DateTime.Now;
-           scmd.Parameters.Add("@date", SqlDbType.DateTime).Value = dt;
+            
+            SqlCommand scmd = new SqlCommand(cmd, null);
+            scmd.CommandType = CommandType.Text;
+            DateTime dt = DateTime.Now;
+            if (matchDate.Text != "")
+                dt = DateTime.Parse(matchDate.Text);
+            scmd.Parameters.Add("@date", SqlDbType.DateTime).Value = dt;
             return Login.SqlTable(Login.connetionString, scmd);
         }
         private void pr(String x)
@@ -141,12 +140,7 @@ namespace SMS
 
 
         }
-        private void Redirect(String role)
-        {
-            String page = WebConfigurationManager.AppSettings["Fan"];
-            Response.Redirect(page);
-            // Server.Transfer(page);
-        }
+        
 
         private bool isLogedin()
         {
@@ -157,5 +151,29 @@ namespace SMS
 
         }
 
+        public void show_Match_Click(object sender, EventArgs e)
+        {
+
+
+            table = loadTable();
+
+            if (table != null)
+            {
+
+                //GridViewButtonTemplate.count = 0;
+                //TemplateField templateField = new TemplateField();
+
+                //templateField.ItemTemplate = new GridViewButtonTemplate("Button");
+                //TicketTable.Columns.Add(templateField);
+
+
+                TicketTable.DataSource = table;
+                TicketTable.DataBind();
+
+
+
+            }
+
+        }
     }
 }

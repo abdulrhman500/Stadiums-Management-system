@@ -74,8 +74,8 @@
     <Content Include="Login.aspx" />
     <Content Include="Purchase.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="sam.aspx" />
     <Content Include="Sports Association Manager Registration.aspx" />
-    <Content Include="Sports_Association_Manager.aspx" />
     <Content Include="Stadium Manager.aspx" />
     <Content Include="Stadium_Manager_Registration.aspx" />
     <Content Include="Sysadmin.aspx" />
@@ -131,19 +131,19 @@
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="sam.aspx.cs">
+      <DependentUpon>sam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="sam.aspx.designer.cs">
+      <DependentUpon>sam.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Sports Association Manager Registration.aspx.cs">
       <DependentUpon>Sports Association Manager Registration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Sports Association Manager Registration.aspx.designer.cs">
       <DependentUpon>Sports Association Manager Registration.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Sports_Association_Manager.aspx.cs">
-      <DependentUpon>Sports_Association_Manager.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Sports_Association_Manager.aspx.designer.cs">
-      <DependentUpon>Sports_Association_Manager.aspx</DependentUpon>
     </Compile>
     <Compile Include="Stadium Manager.aspx.cs">
       <DependentUpon>Stadium Manager.aspx</DependentUpon>
@@ -166,6 +166,7 @@
     <Compile Include="Sysadmin.aspx.designer.cs">
       <DependentUpon>Sysadmin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

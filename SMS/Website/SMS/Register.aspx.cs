@@ -78,7 +78,7 @@ namespace SMS
         private void stadiumManager()
         {
 
-            Response.Redirect("Stadium Manager Registration.aspx");
+            Response.Redirect("Stadium_Manager_Registration.aspx");
         }
 
         private void Club_Reb()

@@ -43,6 +43,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+            <asp:Label ID="status" runat="server" Text="" ></asp:Label>
         <div id="hiddenDiv"  runat="server">
             <asp:Label ID="Done" runat="server" Text="Please select a ticket"></asp:Label>
            

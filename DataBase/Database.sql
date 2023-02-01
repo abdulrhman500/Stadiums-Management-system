@@ -1,9 +1,15 @@
---CREATE DATABASE DBProject;
---USE DBProject;
-EXEC dropAllTABLEs;
+/*
+CREATE DATABASE DBProject;
+USE DBProject;
 EXEC createAllTables;
-DELETE FROM Match
-SELECT * FROM Match
+*/
+/*
+Instructions:
+	1. Run the first two commented queries.
+	2. Run the whole file.
+	3. Run The third commented query.
+	4. Run the whole file.
+*/
 
 CREATE or ALTER PROC createAllTables AS
 
@@ -145,9 +151,7 @@ CREATE or ALTER PROC createAllTables AS
 	);
 GO
 
---EXEC dropAllProceduresFunctionsViews;
 
-GO
 CREATE OR ALTER PROC dropAllTABLEs AS
 	DROP TABLE IF EXISTS 
 	Request,

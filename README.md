@@ -20,22 +20,32 @@ The Project was completed over three main Milestones.
 
 ## Screenshots
 
-| <img src="https://via.placeholder.com/468x300?text=App+Screenshot+Here"> |
-|:--:| 
-| **Registering a new user** |
 
-| <img src="https://via.placeholder.com/468x300?text=App+Screenshot+Here"> |
+| <img src="https://github.com/3laaHisham/Sports-League-Management/releases/download/img/Login.jpeg"> |
 |:--:| 
 | **Login** |
 
+| <img src="https://github.com/3laaHisham/Sports-League-Management/releases/download/img/Register.jpeg"> |
+|:--:| 
+| **Registering** |
+
+| <img src="https://github.com/3laaHisham/Sports-League-Management/releases/download/img/Club.Representative.jpeg"> |
+|:--:| 
+| **Club Representative** |
+
+| <img src="https://github.com/3laaHisham/Sports-League-Management/releases/download/img/Stadium.Manager.jpeg"> |
+|:--:| 
+| **Stadium Manager** |
+
+
 ## Run Locally
 
-1) You will need SQL Server and Visual studio with its requirements.
+1) You will need SQL Server and Visual studio with .NET requirements.
 2) Clone the project.
 ```bash
-  git clone https://github.com/abdulrhman500/Stadiums-Management-system.git
+  git clone https://github.com/3laaHisham/Sports-League-Management.git
 ```
-3) Open Databse/Database.sql and follow the instructions inside it and save the server name you connect to (If you use (localdb)\MSSQLLocalDB you will not worry about the configuration).
+3) Open Database/Database.sql and follow the instructions inside it and save the server name you connect to (If you use (localdb)\MSSQLLocalDB you will not need to worry about the configuration).
 
 4) Open the solution in Visual studio and run the login page.
 
@@ -44,7 +54,7 @@ The Project was completed over three main Milestones.
 P.S: You can use username: admin, password: admin to access as a System Admin.
 
 ## Authors
-
-- [Abdulrhman Fahmy](https://www.github.com/abdulrhman500)
 - [Alaa Hisham](https://www.github.com/3laaHisham)
+- [Abdulrhman Fahmy](https://www.github.com/abdulrhman500)
+
 

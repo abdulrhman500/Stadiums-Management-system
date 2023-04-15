@@ -18,6 +18,9 @@ The Project was completed over three main Milestones.
 2) Creating the SQL Procedures and queries based on the schema.
 3) Building the website including the front and back end.
 
+## ERD diagram 
+![Final_EERD](https://user-images.githubusercontent.com/75482475/232245227-274c490f-73ff-4d3c-b0b2-8baf90eac22f.jpg)
+
 ## Screenshots
 
 
